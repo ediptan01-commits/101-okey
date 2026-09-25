@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>101 Okey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="game">
+        <h1>101 OKEY</h1>
+
+        <div class="table">
+            <div class="player player-top">Rakip 1</div>
+            <div class="player player-left">Rakip 2</div>
+            <div class="player player-right">Rakip 3</div>
+
+            <div class="center">
+                <div class="deck">🀄</div>
+                <div class="discard">Atılan Taş</div>
+            </div>
+
+            <div class="player player-bottom">
+                <strong>Sen</strong>
+                <div id="hand"></div>
+            </div>
+        </div>
+
+        <button onclick="startGame()">Yeni Oyun</button>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
