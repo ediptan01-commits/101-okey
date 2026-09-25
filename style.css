@@ -1,140 +1,364 @@
+:
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
 
+html,
 body {
     margin: 0;
-    background: #075b32;
-    color: white;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     font-family: Arial, sans-serif;
+    background: #075b38;
     user-select: none;
 }
 
-.game {
-    min-height: 100vh;
-    padding: 10px;
-    text-align: center;
+body {
+    color: white;
 }
+
+/* ANA OYUN */
+
+.game {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 500px;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            ellipse at center,
+            #15945a 0%,
+            #087744 55%,
+            #034b2d 100%
+        );
+}
+
+/* MASANIN AHŞAP ÇERÇEVESİ */
+
+.game::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 9px solid #70421e;
+    border-radius: 28px;
+    box-shadow:
+        inset 0 0 20px rgba(0,0,0,.55),
+        0 0 15px rgba(0,0,0,.5);
+    pointer-events: none;
+}
+
+/* BAŞLIK */
 
 h1 {
-    margin: 5px 0 10px;
-    font-size: 30px;
-}
-
-.table {
-    position: relative;
-    width: 100%;
-    max-width: 700px;
-    height: 600px;
-    margin: auto;
-    background:
-        radial-gradient(circle, #087d42 0%, #05642f 75%);
-    border: 10px solid #633719;
-    border-radius: 35px;
-    box-shadow:
-        inset 0 0 30px rgba(0,0,0,.45),
-        0 5px 15px rgba(0,0,0,.4);
-    overflow: hidden;
-}
-
-/* Oyuncular */
-
-.player {
     position: absolute;
-    background: rgba(0,0,0,.28);
-    padding: 8px 15px;
-    border-radius: 15px;
-    font-weight: bold;
-    z-index: 5;
-}
-
-.player-top {
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 20;
+
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000;
 }
 
-.player-left {
-    left: 8px;
-    top: 42%;
-}
+/* OYUN MASASI */
 
-.player-right {
-    right: 8px;
-    top: 42%;
-}
-
-.player-bottom {
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 96%;
-    background: transparent;
-}
-
-/* Orta alan */
-
-.center {
+.table {
     position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    gap: 20px;
-    align-items: center;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
 }
 
-.deck,
-.discard {
-    width: 75px;
-    height: 100px;
-    background: white;
-    color: #222;
+/* OYUNCU BİLGİ KUTULARI */
+
+.player {
+    position: absolute;
+    z-index: 10;
+
+    min-width: 120px;
+    padding: 7px 12px;
+
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 7px rgba(0,0,0,.4);
+
+    background:
+        linear-gradient(
+            rgba(20,20,20,.9),
+            rgba(45,45,45,.8)
+        );
+
+    border: 2px solid rgba(255,255,255,.2);
+
+    box-shadow:
+        0 3px 8px rgba(0,0,0,.5);
+
+    font-size: 14px;
     font-weight: bold;
 }
 
-.deck {
-    background: #164b8f;
-    color: white;
-    border: 4px solid white;
-    font-size: 30px;
+/* RAKİP 1 */
+
+.player-top {
+    top: 43px;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
+/* RAKİP 2 */
+
+.player-left {
+    left: 7px;
+    top: 45%;
+}
+
+/* RAKİP 3 */
+
+.player-right {
+    right: 7px;
+    top: 45%;
+}
+
+/* SEN */
+
+.player-bottom {
+    display: none;
+}
+
+/* OYUNCU TAŞLARI */
+
+.opponent-hand {
+    position: absolute;
+    z-index: 4;
+
+    display: flex;
+    gap: 2px;
+}
+
+/* ÜST */
+
+.opponent-hand.top {
+    top: 91px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* SOL */
+
+.opponent-hand.left {
+    left: 44px;
+    top: 43%;
+    transform: rotate(90deg);
+}
+
+/* SAĞ */
+
+.opponent-hand.right {
+    right: 44px;
+    top: 43%;
+    transform: rotate(90deg);
+}
+
+/* KAPALI RAKİP TAŞI */
+
+.back-tile {
+    width: 16px;
+    height: 29px;
+
+    border-radius: 3px;
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #164f91,
+            #164f91 3px,
+            #2166b1 3px,
+            #2166b1 6px
+        );
+
+    border: 1px solid #eee;
+
+    box-shadow:
+        0 1px 3px rgba(0,0,0,.5);
+}
+
+/* ORTA ALAN */
+
+.center {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    z-index: 8;
+}
+
+/* TAŞ DESTESİ */
+
+.deck {
+    width: 54px;
+    height: 72px;
+
+    border-radius: 5px;
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #174f91,
+            #174f91 4px,
+            #286bb0 4px,
+            #286bb0 8px
+        );
+
+    border: 3px solid white;
+
+    box-shadow:
+        2px 3px 7px rgba(0,0,0,.6);
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+/* ATILAN TAŞ */
 
 .discard {
-    font-size: 13px;
+    width: 48px;
+    height: 68px;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            #fff,
+            #eee
+        );
+
+    color: #222;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+    font-weight: bold;
+
+    border: 1px solid #aaa;
+
+    box-shadow:
+        2px 3px 7px rgba(0,0,0,.6);
 }
 
-/* Taşlar */
+/* OYUNCU ISTAKASI */
 
 #hand {
+    position: absolute;
+
+    left: 4%;
+    right: 4%;
+    bottom: 13px;
+
+    min-height: 120px;
+
+    padding: 10px 8px 8px;
+
     display: flex;
     justify-content: center;
     align-items: flex-end;
     flex-wrap: wrap;
-    gap: 3px;
-    margin-top: 8px;
+
+    gap: 2px;
+
+    z-index: 30;
+
+    border-radius: 10px 10px 16px 16px;
+
+    background:
+        linear-gradient(
+            #9b5a20,
+            #713b14
+        );
+
+    border: 5px solid #4e290e;
+
+    box-shadow:
+        inset 0 5px 10px rgba(255,255,255,.12),
+        inset 0 -5px 10px rgba(0,0,0,.4),
+        0 5px 10px rgba(0,0,0,.5);
 }
 
+/* ISTAKA İÇ GÖLGE */
+
+#hand::before {
+    content: "";
+    position: absolute;
+
+    left: 8px;
+    right: 8px;
+    top: 5px;
+    bottom: 5px;
+
+    border-radius: 7px;
+
+    border: 2px solid rgba(40,20,5,.6);
+
+    pointer-events: none;
+}
+
+/* OKEY TAŞI */
+
 .tile {
-    width: 38px;
-    height: 54px;
-    background: linear-gradient(#fff, #e9e9e9);
+    position: relative;
+    z-index: 2;
+
+    width: 39px;
+    height: 58px;
+
+    flex: 0 0 auto;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #eeeeee
+        );
+
     border: 1px solid #aaa;
-    border-radius: 6px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+
+    font-size: 22px;
     font-weight: bold;
-    box-shadow: 0 3px 5px rgba(0,0,0,.45);
-    cursor: pointer;
-    transition: transform .12s;
+
+    box-shadow:
+        0 2px 4px rgba(0,0,0,.65);
+
+    transition:
+        transform .12s,
+        box-shadow .12s;
 }
 
 .tile:active {
@@ -142,21 +366,26 @@ h1 {
 }
 
 .tile.selected {
-    transform: translateY(-14px);
+    transform: translateY(-16px);
+
     border: 3px solid #ffd000;
-    box-shadow: 0 5px 10px rgba(0,0,0,.6);
+
+    box-shadow:
+        0 6px 10px rgba(0,0,0,.7);
 }
 
+/* TAŞ RENKLERİ */
+
 .tile.red {
-    color: #d40000;
+    color: #d00000;
 }
 
 .tile.yellow {
-    color: #d28b00;
+    color: #d28a00;
 }
 
 .tile.blue {
-    color: #075ac5;
+    color: #075fc5;
 }
 
 .tile.black {
@@ -164,93 +393,152 @@ h1 {
 }
 
 .tile.joker {
-    color: #8a00d4;
-    font-size: 25px;
+    color: #159b3b;
+    font-size: 27px;
 }
 
-/* Rakip taşları */
-
-.opponent-hand {
-    position: absolute;
-    display: flex;
-    gap: 3px;
-    z-index: 2;
-}
-
-.opponent-hand.top {
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.opponent-hand.left {
-    left: 45px;
-    top: 43%;
-    transform: rotate(90deg);
-}
-
-.opponent-hand.right {
-    right: 45px;
-    top: 43%;
-    transform: rotate(90deg);
-}
-
-.back-tile {
-    width: 18px;
-    height: 28px;
-    background: #174f91;
-    border: 2px solid white;
-    border-radius: 4px;
-}
-
-/* Kontroller */
+/* BUTONLAR */
 
 .controls {
+    position: absolute;
+
+    right: 12px;
+    bottom: 145px;
+
+    z-index: 50;
+
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 12px;
+    flex-direction: column;
+
+    gap: 7px;
 }
 
 button {
+    min-width: 90px;
+
+    padding: 9px 12px;
+
     border: none;
-    border-radius: 9px;
-    padding: 12px 20px;
-    background: #f5b400;
-    color: #111;
-    font-size: 16px;
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            #ffd42a,
+            #e7a900
+        );
+
+    color: #222;
+
+    font-size: 13px;
     font-weight: bold;
-    box-shadow: 0 3px 5px rgba(0,0,0,.3);
+
+    box-shadow:
+        0 3px 6px rgba(0,0,0,.5);
 }
 
 button:active {
-    transform: scale(.96);
+    transform: scale(.94);
 }
 
 button:disabled {
     opacity: .5;
 }
 
+/* DURUM YAZISI */
+
 #status {
-    min-height: 22px;
-    margin-top: 8px;
+    position: absolute;
+
+    left: 50%;
+    bottom: 135px;
+
+    transform: translateX(-50%);
+
+    z-index: 60;
+
+    padding: 5px 12px;
+
+    border-radius: 12px;
+
+    background: rgba(0,0,0,.55);
+
+    font-size: 12px;
     font-weight: bold;
+
+    white-space: nowrap;
 }
 
+/* TELEFON EKRANI */
+
 @media (max-width: 500px) {
+
+    h1 {
+        font-size: 20px;
+    }
+
     .table {
-        height: 590px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .player {
+        min-width: 95px;
+        padding: 6px 9px;
+        font-size: 12px;
+    }
+
+    .player-top {
+        top: 38px;
+    }
+
+    .opponent-hand.top {
+        top: 77px;
+    }
+
+    .back-tile {
+        width: 13px;
+        height: 24px;
     }
 
     .tile {
-        width: 32px;
-        height: 47px;
+        width: 31px;
+        height: 46px;
         font-size: 17px;
     }
 
-    .deck,
+    #hand {
+        left: 2%;
+        right: 2%;
+        bottom: 8px;
+        min-height: 105px;
+        padding: 7px 4px;
+    }
+
+    .deck {
+        width: 48px;
+        height: 65px;
+    }
+
     .discard {
-        width: 65px;
-        height: 90px;
+        width: 44px;
+        height: 62px;
+    }
+
+    .controls {
+        right: 7px;
+        bottom: 125px;
+    }
+
+    button {
+        min-width: 75px;
+        padding: 8px;
+        font-size: 11px;
+    }
+
+    #status {
+        bottom: 116px;
+        font-size: 10px;
+        max-width: 70%;
+        overflow: hidden;
     }
 }
